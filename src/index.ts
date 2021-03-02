@@ -6,19 +6,16 @@ export enum SortOrder {
 type PrimitiveOrObject = 'object' | 'string' | 'number';
 
 export class ArraySorter<T> {
-  // sort instance fn that calls the private sort() method.
-  // defined like this for conviently placing into array.sort()
-  public sort = () => (a: T, b: T): unknown => this.internalSort(a, b);
   private _sortOrder: SortOrder = SortOrder.asc;
   private _properties: Map<number, Set<PropertyKey>> = new Map();
 
-  constructor(config?: { sortOrder: SortOrder; properties: PropertyKey[] }) {
+  constructor(config?: { sortOrder?: SortOrder; properties?: PropertyKey[] }) {
     if (config) {
-      if (this.objectHasProperty(config, 'sortOrder')) {
+      if (this.objectHasProperty(config, 'sortOrder') && config.sortOrder) {
         this.sortOrder(config.sortOrder);
       }
-      if (this.objectHasProperty(config, 'properties')) {
-        config.properties.forEach((prop) => this.sortBy(prop));
+      if (this.objectHasProperty(config, 'properties') && config.properties && config.properties?.length > 0) {
+        config.properties?.forEach((prop) => this.sortBy(prop));
       }
     }
   }
@@ -31,7 +28,7 @@ export class ArraySorter<T> {
   }
 
   private typeGuard<Z>(o: unknown, className: PrimitiveOrObject): o is Z {
-    return typeof o === className;
+    return typeof o === className && o !== undefined && o !== null;
   }
 
   private isString(o: unknown): o is string {
@@ -42,7 +39,7 @@ export class ArraySorter<T> {
     return this.typeGuard<Record<string, unknown>>(o, 'object');
   }
   private isNumber(o: unknown): o is number {
-    return this.typeGuard<number>(0, 'number');
+    return this.typeGuard<number>(o, 'number');
   }
   // end of type safety functions
 
@@ -63,7 +60,7 @@ export class ArraySorter<T> {
     return b - a;
   }
   // sort complex objects recursively logic
-  private sortObjects(a: any, b: any, lvlsDeep: number) {
+  private sortObjects(a: Record<PropertyKey, unknown>, b: Record<PropertyKey, unknown>, lvlsDeep: number) {
     // ensure properties were specified
     if (!this._properties.size) {
       throw new Error('In order to sort objects you need to specify the property or properties you wish to sort by.');
@@ -79,12 +76,12 @@ export class ArraySorter<T> {
     }
 
     const values = propsArray
-      .map((propToSort) => this.internalSort(a[propToSort], b[propToSort], ++lvlsDeep))
+      .map((propToSort) => this.internalSort(a[propToSort as string], b[propToSort as string], ++lvlsDeep))
       .filter((val) => val);
     return values[0];
   }
   // private sort method used internally
-  private internalSort(a: any, b: any, lvlsDeep = 0): any {
+  private internalSort(a: unknown, b: unknown, lvlsDeep = 0): number {
     if (this.isString(a) && this.isString(b)) {
       return this.sortStrings(a, b);
     } else if (this.isObject(a) && this.isObject(b)) {
@@ -92,6 +89,7 @@ export class ArraySorter<T> {
     } else if (this.isNumber(a) && this.isNumber(b)) {
       return this.sortNumbers(a, b);
     }
+    throw new Error('variable type is not supported, converting to a string may work.');
   }
   // can call this function to choose sort direction
   sortOrder(order: SortOrder): ArraySorter<T> {
@@ -109,5 +107,9 @@ export class ArraySorter<T> {
       );
     });
     return this;
+  }
+
+  sort() {
+    return (a: T, b: T): number => this.internalSort(a, b);
   }
 }
