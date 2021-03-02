@@ -8,7 +8,7 @@ type PrimitiveOrObject = 'object' | 'string' | 'number';
 export class ArraySorter<T> {
   // sort instance fn that calls the private sort() method.
   // defined like this for conviently placing into array.sort()
-  public sort = () => (a: T, b: T) => this.internalSort(a, b);
+  public sort = () => (a: T, b: T): unknown => this.internalSort(a, b);
   private _sortOrder: SortOrder = SortOrder.asc;
   private _properties: Map<number, Set<PropertyKey>> = new Map();
 
@@ -23,7 +23,10 @@ export class ArraySorter<T> {
     }
   }
   // type safety functions
-  private objectHasProperty<Z extends {}, Y extends PropertyKey>(obj: Z, prop: Y): obj is Z & Record<Y, unknown> {
+  private objectHasProperty<Z extends Record<string, unknown>, Y extends PropertyKey>(
+    obj: Z,
+    prop: Y,
+  ): obj is Z & Record<Y, unknown> {
     return obj.hasOwnProperty(prop);
   }
 
@@ -35,8 +38,8 @@ export class ArraySorter<T> {
     return this.typeGuard<string>(o, 'string');
   }
 
-  private isObject(o: unknown): o is {} {
-    return this.typeGuard<object>(o, 'object');
+  private isObject(o: unknown): o is Record<string, unknown> {
+    return this.typeGuard<Record<string, unknown>>(o, 'object');
   }
   private isNumber(o: unknown): o is number {
     return this.typeGuard<number>(0, 'number');
