@@ -1,10 +1,12 @@
 {
   "name": "ts-array-sort",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple array sorter built on typescript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
