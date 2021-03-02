@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "lint": "eslint '*/**/*.{js,ts}' --quiet --fix",
+    "lint": "eslint \"*/**/*.{js,ts}\" --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
