@@ -1,6 +1,6 @@
 {
   "name": "ts-array-sort",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple array sorter built on typescript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
