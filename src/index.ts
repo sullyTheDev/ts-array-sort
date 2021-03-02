@@ -1,11 +1,11 @@
-enum SortOrder {
+export enum SortOrder {
   asc = 'asc',
   desc = 'desc',
 }
 
 type PrimitiveOrObject = 'object' | 'string' | 'number';
 
-class ArraySorter<T> {
+export class ArraySorter<T> {
   // sort instance fn that calls the private sort() method.
   // defined like this for conviently placing into array.sort()
   public sort = () => (a: T, b: T) => this.internalSort(a, b);
