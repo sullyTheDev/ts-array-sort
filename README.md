@@ -1,5 +1,8 @@
 # ts-array-sort  
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sullyTheDev/ts-array-sort/NPM%20publish%20CD%20workflow?style=flat-square) ![npm](https://img.shields.io/npm/v/ts-array-sort?style=flat-square) ![NPM License](https://img.shields.io/npm/l/ts-array-sort?style=flat-square) ![npm bundle size](https://img.shields.io/bundlephobia/min/ts-array-sort?style=flat-square)  
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sullyTheDev/ts-array-sort/NPM%20publish%20CD%20workflow?style=flat-square)](https://github.com/sullyTheDev/ts-array-sort/actions)
+[![npm](https://img.shields.io/npm/v/ts-array-sort?style=flat-square)](https://www.npmjs.com/package/ts-array-sort)
+[![NPM License](https://img.shields.io/npm/l/ts-array-sort?style=flat-square)](https://opensource.org/licenses/ISC)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/ts-array-sort?style=flat-square)](https://bundlephobia.com/result?p=ts-array-sort) 
 
 ts-array-sort is a simple utility to assist in sorting arrays for Typescript/Javascript. It supports sorting of numbers, strings, and objects out of the box and is very flexible when it comes to sorting objects with multiple or nested properties.
 
