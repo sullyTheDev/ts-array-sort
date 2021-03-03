@@ -34,7 +34,12 @@ jobs:
     # run linter
     - run: npm run lint
     # run tests just in case
-    - run: npm test
+    - run: npm test -- --coverage
+    # send code coverage to coveralls
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
     # upgrade npm version in package.json to the tag used in the release.
     - run: npm version ${{ github.event.release.tag_name }}
     # publish the package
