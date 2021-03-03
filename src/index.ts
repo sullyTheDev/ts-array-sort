@@ -1,3 +1,8 @@
+/**
+ * Enum for sort order values.
+ * @readonly
+ * @enum {'asc' | 'desc'}
+ */
 export enum SortOrder {
   asc = 'asc',
   desc = 'desc',
@@ -8,7 +13,11 @@ type PrimitiveOrObject = 'object' | 'string' | 'number';
 export class ArraySorter<T> {
   private _sortOrder: SortOrder = SortOrder.asc;
   private _properties: Map<number, Set<PropertyKey>> = new Map();
-
+  /**@template T
+   * @description Constructs a new ArraySorter<T>
+   * @param {{sortOrder?: SortOrder, properties?: PropertyKey[]}} [config] an object with optional properties used to build the sort function
+   * @constructor
+   */
   constructor(config?: { sortOrder?: SortOrder; properties?: PropertyKey[] }) {
     if (config) {
       if (this.objectHasProperty(config, 'sortOrder') && config.sortOrder) {
@@ -91,12 +100,22 @@ export class ArraySorter<T> {
     }
     throw new Error('variable type is not supported, converting to a string may work.');
   }
-  // can call this function to choose sort direction
+  /**
+   * @description A method to update the sort order that the resulting sort function uses. Sort order is ascending by default.
+   * @param {SortOrder} order An enum value used to determine the order in which items are sorted
+   * @returns {ArraySorter<T>} The instance of the ArraySorter that the method was called on.
+   * @example new ArraySorter().sortOrder(SortOrder.desc)
+   */
   sortOrder(order: SortOrder): ArraySorter<T> {
     this._sortOrder = order;
     return this;
   }
-  // use this function to declare n number of properties to sort on
+  /**
+   * @description A method to add the properities the resulting sort function uses. Properties are only required when sorting objects.
+   * @param {PropertyKey} property a PropertyKey that exists on the objects that are to be sorted
+   * @returns {ArraySorter<T>} The instance of the ArraySorter that the method was called on.
+   * @example new ArraySorter().sortBy('myPropertyKey')
+   */
   sortBy(property: PropertyKey): ArraySorter<T> {
     const stringProp = property.toString();
     const propsTree = stringProp.split('.');
@@ -108,7 +127,20 @@ export class ArraySorter<T> {
     });
     return this;
   }
-
+  /**
+   * @description A method to add the properities the resulting sort function uses. Properties are only required when sorting objects.
+   * @returns {(a: T, b: T) => number} The sort function to be used within the Array.sort() method.
+   * @example <caption>Inline Example</caption>
+   * // create the sorter function and pass it in all in one line
+   * myArray.sort(new ArraySorter().sort())
+   * @example <caption>Multi-Line Example</caption>
+   *  // create the sorter function
+   *  const sorter = new ArraySorter()
+   *    .sortOrder(SortOrder.desc)
+   *    .sort();
+   *  // usage
+   *  myArray.sort(sorter)
+   */
   sort() {
     return (a: T, b: T): number => this.internalSort(a, b);
   }
