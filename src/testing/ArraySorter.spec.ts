@@ -186,6 +186,7 @@ describe('ArraySorter', () => {
 
   it('should throw an error when an unsupported type is passed in', () => {
     const testArray = [undefined, null, null];
-    expect(() => testArray.sort(new ArraySorter().sort())).not.toThrow();
+    expect(() => testArray.sort(new ArraySorter().sort())).toThrow();
+    expect(false).toBeTruthy();
   });
 });
