@@ -1,6 +1,6 @@
 # ts-array-sort
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/sullyTheDev/ts-array-sort/npm-publish.yml?style=flat-square)](https://github.com/sullyTheDev/ts-array-sort/actions)
-[![Coverage Status](https://coveralls.io/repos/github/sullyTheDev/ts-array-sort/badge.svg?branch=refs/tags/v1.0.9)](https://coveralls.io/github/sullyTheDev/ts-array-sort?branch=refs/tags/v1.0.9)
+[![Coverage Status](https://coveralls.io/repos/github/sullyTheDev/ts-array-sort/badge.svg?branch=refs/tags/v1.0.10)](https://coveralls.io/github/sullyTheDev/ts-array-sort?branch=refs/tags/v1.0.10)
 [![npm](https://img.shields.io/npm/v/ts-array-sort?style=flat-square)](https://www.npmjs.com/package/ts-array-sort)
 [![NPM License](https://img.shields.io/npm/l/ts-array-sort?style=flat-square)](https://opensource.org/licenses/ISC)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/ts-array-sort?style=flat-square)](https://bundlephobia.com/result?p=ts-array-sort) 
